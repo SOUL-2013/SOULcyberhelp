@@ -1,0 +1,945 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#080b16">
+  <meta name="description" content="SOUL CYBERGUARD — Learn about online scams, check suspicious messages, and improve your digital safety.">
+  <title>SOUL CYBERGUARD | Digital Safety Center</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+    :root {
+      --bg: #080b16;
+      --panel: #101629;
+      --panel2: #151d33;
+      --border: rgba(153, 174, 255, .15);
+      --text: #f4f6ff;
+      --muted: #9ba7c4;
+      --cyan: #54f5e7;
+      --purple: #a78bfa;
+      --pink: #ff75c3;
+      --green: #61e6a5;
+      --red: #ff7185;
+      --yellow: #ffd479;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; scroll-padding-top: 100px; }
+
+    body {
+      background:
+        radial-gradient(ellipse at 15% 5%, rgba(91, 76, 190, .16), transparent 36%),
+        radial-gradient(ellipse at 90% 40%, rgba(27, 180, 184, .08), transparent 35%),
+        var(--bg);
+      color: var(--text);
+      font-family: Inter, Arial, sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    button, input, textarea, select { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    button { cursor: pointer; }
+    a { color: inherit; text-decoration: none; }
+    button:focus-visible, a:focus-visible, input:focus-visible,
+    textarea:focus-visible, select:focus-visible {
+      outline: 2px solid var(--cyan);
+      outline-offset: 3px;
+    }
+
+    .container { width: min(1160px, 92%); margin: auto; }
+    .muted { color: var(--muted); }
+    .gradient-text {
+      background: linear-gradient(100deg, var(--cyan), #9cb6ff, var(--pink));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(8, 11, 22, .86);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand { display: flex; align-items: center; gap: 11px; }
+    .brand-icon {
+      width: 43px; height: 43px; border-radius: 14px;
+      display: grid; place-items: center;
+      background: linear-gradient(135deg, var(--cyan), var(--purple));
+      color: #080b16; font-weight: 900; font-size: 21px;
+      box-shadow: 0 0 28px rgba(84, 245, 231, .16);
+    }
+
+    .brand-name { font-family: "Space Grotesk", sans-serif; font-size: 17px; font-weight: 700; }
+    .brand-sub { display: block; color: var(--muted); font-size: 10px; letter-spacing: 2px; }
+
+    .nav-links { display: flex; align-items: center; gap: 23px; }
+    .nav-links a { font-size: 13px; color: #c6cde0; transition: color .2s; }
+    .nav-links a:hover { color: var(--cyan); }
+    .menu-btn { display: none; }
+
+    .btn {
+      border: 1px solid var(--border);
+      background: var(--panel2);
+      color: var(--text);
+      padding: 11px 17px;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-weight: 700;
+      font-size: 13px;
+      transition: transform .2s, border-color .2s, background .2s;
+    }
+
+    .btn:hover { transform: translateY(-2px); border-color: var(--cyan); }
+    .btn-primary { background: var(--cyan); color: #071119; border-color: var(--cyan); }
+    .btn-primary:hover { background: #a4fff6; }
+    .btn-small { padding: 8px 12px; }
+    .btn:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+
+    .hero { padding: 86px 0 60px; position: relative; }
+    .hero-grid { display: grid; grid-template-columns: 1.15fr .85fr; align-items: center; gap: 50px; }
+
+    .eyebrow {
+      display: inline-flex; gap: 8px; align-items: center;
+      border: 1px solid rgba(84, 245, 231, .24);
+      background: rgba(84, 245, 231, .06);
+      color: var(--cyan); padding: 7px 12px;
+      border-radius: 30px; font-size: 11px;
+      letter-spacing: 1.5px; text-transform: uppercase;
+    }
+
+    .dot { width: 7px; height: 7px; background: var(--green); border-radius: 50%; box-shadow: 0 0 10px var(--green); }
+
+    h1, h2, h3 { font-family: "Space Grotesk", sans-serif; line-height: 1.16; }
+    h1 { font-size: clamp(42px, 6vw, 68px); margin: 24px 0 20px; letter-spacing: -2.5px; }
+    .hero-copy { max-width: 580px; font-size: 16px; color: var(--muted); }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+    .hero-note { margin-top: 20px; font-size: 11px; color: var(--muted); }
+
+    .visual-wrap { position: relative; min-height: 350px; display: grid; place-items: center; }
+    .orb {
+      width: 245px; height: 245px; border-radius: 50%;
+      border: 1px solid rgba(84, 245, 231, .45);
+      display: grid; place-items: center;
+      background: radial-gradient(circle, rgba(84,245,231,.13), rgba(167,139,250,.08) 45%, transparent 70%);
+      box-shadow: 0 0 80px rgba(84, 245, 231, .08), inset 0 0 45px rgba(167,139,250,.12);
+      animation: float 5s ease-in-out infinite;
+    }
+
+    .orb-inner {
+      width: 160px; height: 160px; border-radius: 50%;
+      border: 1px solid rgba(167, 139, 250, .5);
+      display: grid; place-items: center;
+      background: rgba(11, 18, 35, .75);
+      box-shadow: 0 0 30px rgba(167,139,250,.16);
+      font-size: 70px;
+    }
+
+    .orbit {
+      position: absolute; width: 310px; height: 310px;
+      border: 1px dashed rgba(167,139,250,.38);
+      border-radius: 50%; animation: spin 22s linear infinite;
+    }
+
+    .orbit::after {
+      content: ""; position: absolute; top: 34px; left: 29px;
+      width: 12px; height: 12px; border-radius: 50%;
+      background: var(--cyan); box-shadow: 0 0 20px var(--cyan);
+    }
+
+    .float-card {
+      position: absolute; background: rgba(16,22,41,.94);
+      border: 1px solid var(--border); border-radius: 14px;
+      padding: 12px 15px; box-shadow: 0 12px 35px rgba(0,0,0,.2);
+      font-size: 12px;
+    }
+
+    .float-card strong { display: block; font-size: 13px; margin-bottom: 3px; }
+    .float-one { top: 24px; right: 0; }
+    .float-two { bottom: 26px; left: 0; }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @keyframes float { 50% { transform: translateY(-9px); } }
+
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; padding-bottom: 40px; }
+    .stat, .card, .tool-panel, .lesson, .alert-card {
+      border: 1px solid var(--border);
+      background: linear-gradient(145deg, rgba(19,27,48,.95), rgba(12,17,32,.95));
+      border-radius: 18px;
+    }
+
+    .stat { padding: 19px; }
+    .stat strong { display: block; font-family: "Space Grotesk"; font-size: 25px; }
+    .stat span { color: var(--muted); font-size: 12px; }
+
+    section { padding: 66px 0; }
+    .section-heading { max-width: 720px; margin-bottom: 30px; }
+    .section-heading h2 { font-size: clamp(30px, 4vw, 42px); margin: 12px 0; letter-spacing: -1px; }
+    .section-heading p { color: var(--muted); font-size: 14px; }
+    .section-label { color: var(--cyan); text-transform: uppercase; letter-spacing: 2px; font-size: 11px; font-weight: 800; }
+
+    .tools-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 20px; align-items: start; }
+    .tool-panel { padding: 25px; }
+    .panel-heading { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+    .panel-icon { width: 43px; height: 43px; display: grid; place-items: center; border-radius: 13px; background: rgba(84,245,231,.1); font-size: 21px; }
+    .panel-heading h3 { font-size: 19px; }
+    .panel-heading p { color: var(--muted); font-size: 12px; }
+
+    label { display: block; font-size: 12px; color: #d8dff3; margin: 14px 0 8px; font-weight: 700; }
+    textarea, input, select {
+      width: 100%; background: #090f20; color: var(--text);
+      border: 1px solid var(--border); border-radius: 11px;
+      padding: 13px 14px; outline: none;
+    }
+
+    textarea { resize: vertical; min-height: 145px; }
+    textarea::placeholder, input::placeholder { color: #68738e; }
+    .full { width: 100%; margin-top: 14px; }
+    .result { display: none; margin-top: 18px; padding: 16px; border-radius: 12px; border: 1px solid var(--border); }
+    .result.show { display: block; animation: appear .25s ease; }
+    .result h4 { margin-bottom: 6px; }
+    .result p, .result li { font-size: 13px; color: #c0c9e0; }
+    .result ul { padding-left: 18px; margin-top: 8px; }
+    .result.safe { border-color: rgba(97,230,165,.45); }
+    .result.warn { border-color: rgba(255,212,121,.5); }
+    .result.danger { border-color: rgba(255,113,133,.5); }
+    @keyframes appear { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+    .quick-list { display: grid; gap: 12px; }
+    .quick-item { padding: 15px; border: 1px solid var(--border); border-radius: 13px; display: flex; gap: 12px; align-items: flex-start; }
+    .quick-item .emoji { font-size: 21px; }
+    .quick-item strong { display: block; font-size: 13px; margin-bottom: 3px; }
+    .quick-item p { color: var(--muted); font-size: 12px; }
+
+    .alerts-toolbar { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 20px; }
+    .alerts-toolbar input { flex: 1; min-width: 180px; }
+    .alerts-toolbar select { width: auto; min-width: 140px; }
+    .alerts-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+
+    .alert-card { padding: 20px; transition: transform .25s, border-color .25s; }
+    .alert-card:hover, .lesson:hover { transform: translateY(-4px); border-color: rgba(84,245,231,.4); }
+    .alert-top { display: flex; justify-content: space-between; gap: 8px; align-items: center; margin-bottom: 14px; }
+    .pill { display: inline-flex; align-items: center; border-radius: 30px; padding: 5px 9px; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: .6px; }
+    .pill-red { background: rgba(255,113,133,.12); color: var(--red); }
+    .pill-yellow { background: rgba(255,212,121,.12); color: var(--yellow); }
+    .pill-green { background: rgba(97,230,165,.12); color: var(--green); }
+    .alert-card h3 { font-size: 17px; margin-bottom: 10px; }
+    .alert-card p { color: var(--muted); font-size: 12px; }
+    .alert-action { margin-top: 17px; padding-top: 13px; border-top: 1px solid var(--border); color: var(--cyan); font-size: 12px; font-weight: 700; }
+    .feed-note { font-size: 11px; color: var(--muted); margin-top: 18px; }
+
+    .academy-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .lesson { padding: 23px; transition: .25s; }
+    .lesson-icon { font-size: 28px; margin-bottom: 15px; }
+    .lesson h3 { font-size: 18px; margin-bottom: 9px; }
+    .lesson p { color: var(--muted); font-size: 13px; }
+    .lesson details { margin-top: 15px; border-top: 1px solid var(--border); padding-top: 13px; }
+    .lesson summary { color: var(--cyan); font-size: 12px; font-weight: 700; cursor: pointer; }
+    .lesson details p { margin-top: 12px; }
+
+    .report-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .card { padding: 24px; }
+    .card h3 { font-size: 20px; margin-bottom: 12px; }
+    .card p { color: var(--muted); font-size: 13px; }
+    .report-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+    .notice { margin-top: 16px; padding: 14px; background: rgba(255,212,121,.06); border: 1px solid rgba(255,212,121,.2); border-radius: 12px; color: #e8d9b5; font-size: 12px; }
+    .report-status { margin-top: 12px; font-size: 12px; color: var(--muted); overflow-wrap: anywhere; }
+
+    .quiz-box { max-width: 750px; }
+    .quiz-question { font-family: "Space Grotesk"; font-size: 20px; margin: 15px 0; }
+    .quiz-options { display: grid; gap: 10px; }
+    .quiz-option { text-align: left; padding: 13px; border: 1px solid var(--border); background: #0a1020; color: var(--text); border-radius: 11px; }
+    .quiz-option:hover { border-color: var(--cyan); }
+    .quiz-feedback { margin-top: 14px; font-size: 13px; min-height: 24px; }
+
+    footer { margin-top: 35px; border-top: 1px solid var(--border); padding: 30px 0; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; align-items: center; }
+    footer p { color: var(--muted); font-size: 11px; }
+    .footer-links { display: flex; gap: 17px; font-size: 11px; color: var(--muted); }
+    .back-top { position: fixed; right: 20px; bottom: 20px; z-index: 20; border-radius: 50%; width: 43px; height: 43px; display: grid; place-items: center; background: var(--cyan); color: #071119; border: none; font-size: 20px; box-shadow: 0 0 25px rgba(84,245,231,.15); }
+
+    @media (max-width: 850px) {
+      .hero-grid, .tools-grid, .report-grid { grid-template-columns: 1fr; }
+      .hero { padding-top: 55px; }
+      .visual-wrap { min-height: 320px; }
+      .alerts-grid, .academy-grid { grid-template-columns: repeat(2, 1fr); }
+      .nav-links { gap: 13px; }
+      .nav-links a { font-size: 11px; }
+      .nav .btn { display: none; }
+    }
+
+    @media (max-width: 600px) {
+      .nav { min-height: 68px; }
+      .menu-btn { display: inline-flex; }
+      .nav-links {
+        display: none; position: absolute; top: 68px; left: 0; right: 0;
+        background: #0c1222; padding: 20px 5%; border-bottom: 1px solid var(--border);
+        flex-direction: column; align-items: stretch;
+      }
+      .nav-links.open { display: flex; }
+      .nav-links a { font-size: 14px; padding: 7px 0; }
+      h1 { letter-spacing: -1.5px; }
+      .stats { grid-template-columns: repeat(2, 1fr); }
+      .alerts-grid, .academy-grid { grid-template-columns: 1fr; }
+      section { padding: 48px 0; }
+      .tool-panel, .card { padding: 18px; }
+      .float-one { right: -4px; }
+      .float-two { left: -4px; }
+      .orb { width: 210px; height: 210px; }
+      .orb-inner { width: 140px; height: 140px; font-size: 57px; }
+      .orbit { width: 265px; height: 265px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="container nav">
+      <a href="#home" class="brand" aria-label="SOUL CyberGuard home">
+        <div class="brand-icon">S</div>
+        <div>
+          <div class="brand-name">SOUL <span class="gradient-text">CYBERGUARD</span></div>
+          <span class="brand-sub">DIGITAL SAFETY CENTER</span>
+        </div>
+      </a>
+
+      <nav class="nav-links" id="navLinks" aria-label="Main navigation">
+        <a href="#checker">Scam Checker</a>
+        <a href="#alerts">Alerts</a>
+        <a href="#academy">Learn</a>
+        <a href="#report">Report a Scam</a>
+      </nav>
+
+      <button class="btn btn-primary" onclick="document.querySelector('#checker').scrollIntoView({behavior:'smooth'})">
+        ⚡ Check a Message
+      </button>
+      <button class="btn menu-btn" id="menuBtn" aria-expanded="false" aria-controls="navLinks">☰ Menu</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow"><span class="dot"></span> Your digital safety companion</div>
+          <h1>Think smart.<br>Stay <span class="gradient-text">cyber safe.</span></h1>
+          <p class="hero-copy">
+            The internet is full of opportunities—and scams. Learn how to spot suspicious
+            messages, recognize common online threats, and make safer digital decisions.
+          </p>
+          <div class="hero-actions">
+            <a href="#checker" class="btn btn-primary">⌕ Analyze a Message</a>
+            <a href="#academy" class="btn">Explore Safety Academy ↗</a>
+          </div>
+          <p class="hero-note">🛡️ Learn to identify warning signs before you click, pay, or share.</p>
+        </div>
+
+        <div class="visual-wrap" aria-label="Animated digital shield illustration">
+          <div class="orbit"></div>
+          <div class="orb"><div class="orb-inner">🛡️</div></div>
+          <div class="float-card float-one">
+            <strong style="color:var(--cyan)">● PROTECTION FIRST</strong>
+            <span class="muted">Pause before you click</span>
+          </div>
+          <div class="float-card float-two">
+            <strong>🔐 Privacy matters</strong>
+            <span class="muted">Keep personal data safe</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="container stats" aria-label="Website features">
+      <div class="stat"><strong class="gradient-text">01</strong><span>Message risk checker</span></div>
+      <div class="stat"><strong class="gradient-text">02</strong><span>Scam awareness feed</span></div>
+      <div class="stat"><strong class="gradient-text">03</strong><span>Safety learning hub</span></div>
+      <div class="stat"><strong class="gradient-text">24/7</strong><span>Practice safe habits</span></div>
+    </div>
+
+    <section id="checker">
+      <div class="container">
+        <div class="section-heading">
+          <span class="section-label">Interactive security tool</span>
+          <h2>Check before you <span class="gradient-text">click.</span></h2>
+          <p>Paste suspicious message text to look for common scam indicators. Analysis happens in your browser; the message is not sent to a server by this checker.</p>
+        </div>
+
+        <div class="tools-grid">
+          <div class="tool-panel">
+            <div class="panel-heading">
+              <div class="panel-icon">⌕</div>
+              <div><h3>Suspicious Message Analyzer</h3><p>Check for common warning signs</p></div>
+            </div>
+
+            <form id="checkerForm">
+              <label for="messageInput">Message or email text</label>
+              <textarea id="messageInput" maxlength="10000" required placeholder="Example: Your account will be blocked today! Verify your details immediately using this link..."></textarea>
+              <button class="btn btn-primary full" type="submit">⚡ Analyze Message</button>
+              <button class="btn full" type="button" id="clearChecker">Clear Message</button>
+            </form>
+            <div id="checkerResult" class="result" aria-live="polite"></div>
+            <p class="muted" style="font-size:11px;margin-top:13px">Important: this is a basic educational pattern checker, not an antivirus, official verification service, or guarantee that a message is safe.</p>
+          </div>
+
+          <div class="tool-panel">
+            <div class="panel-heading">
+              <div class="panel-icon">⚠️</div>
+              <div><h3>Warning Signs</h3><p>Things to look out for</p></div>
+            </div>
+            <div class="quick-list">
+              <div class="quick-item"><span class="emoji">⏰</span><div><strong>Artificial urgency</strong><p>“Act now or your account will be blocked.”</p></div></div>
+              <div class="quick-item"><span class="emoji">🎁</span><div><strong>Unbelievable rewards</strong><p>Unexpected prizes, refunds, or easy-money offers.</p></div></div>
+              <div class="quick-item"><span class="emoji">🔑</span><div><strong>Requests for secrets</strong><p>Passwords, PINs, OTPs, or recovery codes.</p></div></div>
+              <div class="quick-item"><span class="emoji">🔗</span><div><strong>Suspicious links</strong><p>Misspelled domains, unfamiliar websites, or unexpected attachments.</p></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="alerts">
+      <div class="container">
+        <div class="section-heading">
+          <span class="section-label">Scam awareness feed</span>
+          <h2>Know the <span class="gradient-text">tricks.</span></h2>
+          <p>Explore example scam patterns and the steps you can take to protect yourself. These are educational examples, not live incident reports.</p>
+        </div>
+
+        <div class="alerts-toolbar">
+          <input id="alertSearch" type="search" placeholder="Search scam types..." aria-label="Search scam types">
+          <select id="alertFilter" aria-label="Filter scam examples">
+            <option value="all">All examples</option>
+            <option value="high">High risk</option>
+            <option value="medium">Be cautious</option>
+          </select>
+        </div>
+
+        <div class="alerts-grid" id="alertsGrid">
+          <article class="alert-card" data-risk="high" data-search="otp bank account verification sms">
+            <div class="alert-top"><span class="pill pill-red">High risk pattern</span><span>🏦</span></div>
+            <h3>Fake Bank Verification</h3>
+            <p>A message claims your bank account will be suspended unless you provide an OTP, PIN, or password.</p>
+            <div class="alert-action">Never share OTPs or PINs.</div>
+          </article>
+
+          <article class="alert-card" data-risk="high" data-search="upi payment qr code refund money">
+            <div class="alert-top"><span class="pill pill-red">High risk pattern</span><span>💳</span></div>
+            <h3>Payment & QR Scams</h3>
+            <p>Someone claims you must scan a QR code or enter your UPI PIN to receive money.</p>
+            <div class="alert-action">You generally don't need a UPI PIN to receive money.</div>
+          </article>
+
+          <article class="alert-card" data-risk="medium" data-search="job work from home easy money fee">
+            <div class="alert-top"><span class="pill pill-yellow">Be cautious</span><span>💼</span></div>
+            <h3>Fake Job Offers</h3>
+            <p>A recruiter promises easy income but asks for registration fees, deposits, or sensitive documents.</p>
+            <div class="alert-action">Verify the employer independently.</div>
+          </article>
+
+          <article class="alert-card" data-risk="high" data-search="tech support remote access computer virus">
+            <div class="alert-top"><span class="pill pill-red">High risk pattern</span><span>💻</span></div>
+            <h3>Fake Tech Support</h3>
+            <p>A pop-up or caller says your device is infected and demands payment or remote access.</p>
+            <div class="alert-action">Use official support channels.</div>
+          </article>
+
+          <article class="alert-card" data-risk="medium" data-search="prize lottery giveaway gift winner">
+            <div class="alert-top"><span class="pill pill-yellow">Be cautious</span><span>🎁</span></div>
+            <h3>Prize & Lottery Scams</h3>
+            <p>You are told you won something you never entered for, but must pay a fee to claim it.</p>
+            <div class="alert-action">Don't pay to claim unexpected prizes.</div>
+          </article>
+
+          <article class="alert-card" data-risk="high" data-search="social media impersonation fake profile">
+            <div class="alert-top"><span class="pill pill-red">High risk pattern</span><span>👤</span></div>
+            <h3>Impersonation Scams</h3>
+            <p>A fake account copies someone you know and asks urgently for money or private information.</p>
+            <div class="alert-action">Verify through another trusted channel.</div>
+          </article>
+        </div>
+        <p class="feed-note">The cards above are illustrative examples, not verified current alerts. No live threat-intelligence service is connected to this demo.</p>
+      </div>
+    </section>
+
+    <section id="academy">
+      <div class="container">
+        <div class="section-heading">
+          <span class="section-label">Cyber safety academy</span>
+          <h2>Build your digital <span class="gradient-text">defense.</span></h2>
+          <p>Simple habits can help you avoid common online threats. Open each lesson to learn more.</p>
+        </div>
+
+        <div class="academy-grid">
+          <article class="lesson">
+            <div class="lesson-icon">🔐</div>
+            <h3>Password Security</h3>
+            <p>Protect your accounts with strong, unique passwords.</p>
+            <details><summary>Read lesson ↗</summary><p>Use a different password for every important account. A password manager can help. Turn on multifactor authentication when available, and never share verification codes.</p></details>
+          </article>
+
+          <article class="lesson">
+            <div class="lesson-icon">🎣</div>
+            <h3>Spot Phishing</h3>
+            <p>Recognize fake messages and misleading websites.</p>
+            <details><summary>Read lesson ↗</summary><p>Check the full sender address and domain. Be careful with unexpected attachments, urgent requests, and links. Open the official website yourself instead of using a suspicious message link.</p></details>
+          </article>
+
+          <article class="lesson">
+            <div class="lesson-icon">📱</div>
+            <h3>Phone Safety</h3>
+            <p>Keep your device and applications protected.</p>
+            <details><summary>Read lesson ↗</summary><p>Install updates, review app permissions, use a screen lock, and download apps from trusted sources. Avoid installing unknown apps at someone's request.</p></details>
+          </article>
+
+          <article class="lesson">
+            <div class="lesson-icon">💳</div>
+            <h3>Digital Payments</h3>
+            <p>Make online payments with care.</p>
+            <details><summary>Read lesson ↗</summary><p>Never share your UPI PIN, OTP, or banking password. Check the recipient and amount before approving a transaction. Be suspicious of requests to install remote-access apps.</p></details>
+          </article>
+
+          <article class="lesson">
+            <div class="lesson-icon">🌐</div>
+            <h3>Privacy Protection</h3>
+            <p>Think carefully about what you share online.</p>
+            <details><summary>Read lesson ↗</summary><p>Limit public personal information. Review social media privacy settings. Don't post addresses, passwords, identity documents, or live location details publicly.</p></details>
+          </article>
+
+          <article class="lesson">
+            <div class="lesson-icon">🧠</div>
+            <h3>AI & Deepfake Awareness</h3>
+            <p>Don't trust every voice, video, or screenshot.</p>
+            <details><summary>Read lesson ↗</summary><p>AI can imitate voices and images. Verify unusual requests for money or secrets using a separate trusted contact method. A realistic-looking video is not proof by itself.</p></details>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="quiz">
+      <div class="container">
+        <div class="section-heading">
+          <span class="section-label">Test your knowledge</span>
+          <h2>Cyber safety <span class="gradient-text">challenge.</span></h2>
+          <p>Try this quick question to practise making safer online decisions.</p>
+        </div>
+
+        <div class="tool-panel quiz-box">
+          <span class="pill pill-green">Question 1 of 1</span>
+          <div class="quiz-question">A caller says they are from your bank and asks for your OTP to prevent account suspension. What should you do?</div>
+          <div class="quiz-options" id="quizOptions">
+            <button class="quiz-option" data-correct="false">A. Share the OTP because they know your name.</button>
+            <button class="quiz-option" data-correct="true">B. Don't share it; end the call and contact the bank through an official channel.</button>
+            <button class="quiz-option" data-correct="false">C. Send the OTP to a friend to check if it is real.</button>
+          </div>
+          <div class="quiz-feedback" id="quizFeedback" aria-live="polite"></div>
+          <button class="btn btn-primary" id="retryQuiz" hidden>Try Again</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="report">
+      <div class="container">
+        <div class="section-heading">
+          <span class="section-label">Take action safely</span>
+          <h2>Know where to <span class="gradient-text">get help.</span></h2>
+          <p>If you suspect a scam, preserve relevant evidence, contact the affected service through official channels, and use the appropriate reporting service.</p>
+        </div>
+
+        <div class="report-grid">
+          <div class="card">
+            <h3>🇮🇳 India Cybercrime Reporting</h3>
+            <p>For suspected cybercrime in India, visit the official National Cyber Crime Reporting Portal. The national helpline 1930 is intended for reporting financial cyber fraud.</p>
+            <div class="report-links">
+              <a class="btn btn-primary" href="https://cybercrime.gov.in/" target="_blank" rel="noopener noreferrer">Official Cybercrime Portal ↗</a>
+              <a class="btn" href="https://www.mha.gov.in/" target="_blank" rel="noopener noreferrer">Ministry of Home Affairs ↗</a>
+            </div>
+            <div class="notice">If money has been lost to suspected financial cyber fraud, contact 1930 promptly and follow the official reporting instructions. This website does not contact authorities for you.</div>
+          </div>
+
+          <div class="card">
+            <h3>📝 Community Report Demo</h3>
+            <p>Describe a suspicious pattern without sharing private details. This form is a local demo unless you configure Firebase below.</p>
+
+            <form id="reportForm">
+              <label for="reportType">Type of suspicious activity</label>
+              <select id="reportType" required>
+                <option value="">Choose a category</option>
+                <option>Phishing message</option>
+                <option>Payment scam</option>
+                <option>Fake job offer</option>
+                <option>Impersonation</option>
+                <option>Other suspicious activity</option>
+              </select>
+
+              <label for="reportDescription">Description (no personal or financial information)</label>
+              <textarea id="reportDescription" maxlength="1500" required placeholder="Describe the suspicious behavior. Do not include passwords, OTPs, bank details, phone numbers, or identity documents."></textarea>
+
+              <button class="btn btn-primary full" type="submit">Submit Report</button>
+            </form>
+            <div class="report-status" id="reportStatus" aria-live="polite">Firebase is optional. Without it, this demo does not save or transmit your report.</div>
+            <button class="btn full" id="googleSignIn" type="button">Continue with Google (optional)</button>
+            <button class="btn full" id="googleSignOut" type="button" hidden>Sign Out</button>
+            <div class="report-status" id="authStatus" aria-live="polite">Not signed in.</div>
+          </div>
+        </div>
+
+        <div class="notice">Safety reminder: this community form is not an emergency service and is not an official complaint portal. Do not submit sensitive personal information. Reports should be reviewed before anything is published.</div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <a href="#home" class="brand">
+        <div class="brand-icon">S</div>
+        <div><div class="brand-name">SOUL CYBERGUARD</div><span class="brand-sub">STAY AWARE. STAY SAFE.</span></div>
+      </a>
+      <p>© <span id="year"></span> SOUL CYBERGUARD · An educational cybersecurity project.</p>
+      <div class="footer-links"><a href="#academy">Learn</a><a href="#checker">Checker</a><a href="#report">Get Help</a></div>
+    </div>
+  </footer>
+
+  <button class="back-top" id="backTop" aria-label="Back to top" title="Back to top">↑</button>
+
+  <script>
+    // -------------------------------------------------------
+    // SOUL CYBERGUARD — browser-based educational demo
+    // -------------------------------------------------------
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Mobile navigation
+    const menuBtn = document.getElementById("menuBtn");
+    const navLinks = document.getElementById("navLinks");
+
+    menuBtn.addEventListener("click", () => {
+      const isOpen = navLinks.classList.toggle("open");
+      menuBtn.setAttribute("aria-expanded", String(isOpen));
+    });
+
+    navLinks.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+        menuBtn.setAttribute("aria-expanded", "false");
+      });
+    });
+
+    // Back-to-top button
+    document.getElementById("backTop").addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    // Educational scam-pattern checker
+    const checkerForm = document.getElementById("checkerForm");
+    const messageInput = document.getElementById("messageInput");
+    const checkerResult = document.getElementById("checkerResult");
+
+    const patterns = [
+      { name: "Urgent threat or pressure", regex: /\b(urgent|immediately|act now|account (?:will be )?(?:blocked|suspended|closed)|final warning|within \d+ hours?)\b/i, weight: 2 },
+      { name: "OTP, PIN, or password request", regex: /\b(share|send|provide|enter|confirm|verify).{0,35}\b(otp|pin|password|passcode|verification code)\b|\b(otp|pin|password).{0,35}\b(share|send|provide|reveal)\b/i, weight: 4 },
+      { name: "Unexpected prize or reward", regex: /\b(you (?:have )?won|winner|lottery|claim your prize|free gift|congratulations.{0,25}prize)\b/i, weight: 2 },
+      { name: "Advance fee request", regex: /\b(processing fee|release fee|pay (?:a )?(?:small )?fee|registration fee|security deposit to receive)\b/i, weight: 3 },
+      { name: "Money transfer pressure", regex: /\b(send money|transfer money|pay immediately|gift cards|crypto wallet|urgent payment)\b/i, weight: 2 },
+      { name: "Remote access request", regex: /\b(remote access|install (?:this )?anydesk|install (?:this )?teamviewer|screen sharing app)\b/i, weight: 3 },
+      { name: "Suspicious web link", regex: /https?:\/\/|www\./i, weight: 1 },
+      { name: "Unusual money-making promise", regex: /\b(guaranteed profit|double your money|easy money|earn \d+ daily|risk.free investment)\b/i, weight: 2 },
+      { name: "Identity or account verification pressure", regex: /\b(verify your (?:bank|account|identity|kyc)|update kyc|account verification)\b/i, weight: 2 }
+    ];
+
+    checkerForm.addEventListener("submit", event => {
+      event.preventDefault();
+      const message = messageInput.value.trim();
+
+      if (!message) {
+        messageInput.focus();
+        return;
+      }
+
+      const found = patterns.filter(item => item.regex.test(message));
+      const score = found.reduce((total, item) => total + item.weight, 0);
+
+      let level, title, advice, style;
+
+      if (score >= 6) {
+        level = "High number of warning signs";
+        title = "⚠️ Treat this message as suspicious";
+        advice = "Do not click links, send money, install apps, or share verification codes. Verify independently using an official website or trusted contact.";
+        style = "danger";
+      } else if (score >= 2) {
+        level = "Some warning signs found";
+        title = "🔎 Pause and verify independently";
+        advice = "This message contains patterns sometimes seen in scams. Don't rely on this score alone. Check the sender and confirm the request through a separate trusted channel.";
+        style = "warn";
+      } else {
+        level = "Few known patterns detected";
+        title = "🛡️ No strong pattern match";
+        advice = "This does not mean the message is safe. New scams can avoid common phrases. Verify unexpected requests and never share OTPs, passwords, or PINs.";
+        style = "safe";
+      }
+
+      checkerResult.className = "result show " + style;
+      checkerResult.replaceChildren();
+
+      const heading = document.createElement("h4");
+      heading.textContent = title;
+
+      const levelText = document.createElement("p");
+      levelText.textContent = "Result: " + level + ". This is a basic heuristic, not a verified risk score.";
+
+      const adviceText = document.createElement("p");
+      adviceText.style.marginTop = "8px";
+      adviceText.textContent = advice;
+
+      checkerResult.append(heading, levelText, adviceText);
+
+      if (found.length) {
+        const listTitle = document.createElement("p");
+        listTitle.style.marginTop = "12px";
+        listTitle.style.fontWeight = "700";
+        listTitle.textContent = "Patterns detected:";
+        const list = document.createElement("ul");
+
+        found.forEach(item => {
+          const li = document.createElement("li");
+          li.textContent = item.name;
+          list.appendChild(li);
+        });
+
+        checkerResult.append(listTitle, list);
+      } else {
+        const noMatch = document.createElement("p");
+        noMatch.style.marginTop = "10px";
+        noMatch.textContent = "No listed patterns matched. That cannot confirm the message is genuine.";
+        checkerResult.appendChild(noMatch);
+      }
+    });
+
+    document.getElementById("clearChecker").addEventListener("click", () => {
+      messageInput.value = "";
+      checkerResult.className = "result";
+      checkerResult.replaceChildren();
+      messageInput.focus();
+    });
+
+    // Search and filter example scam cards
+    const alertSearch = document.getElementById("alertSearch");
+    const alertFilter = document.getElementById("alertFilter");
+    const alertCards = [...document.querySelectorAll(".alert-card")];
+
+    function filterAlerts() {
+      const query = alertSearch.value.toLowerCase().trim();
+      const risk = alertFilter.value;
+
+      alertCards.forEach(card => {
+        const matchesText = (card.dataset.search + " " + card.textContent).toLowerCase().includes(query);
+        const matchesRisk = risk === "all" || card.dataset.risk === risk;
+        card.hidden = !(matchesText && matchesRisk);
+      });
+    }
+
+    alertSearch.addEventListener("input", filterAlerts);
+    alertFilter.addEventListener("change", filterAlerts);
+
+    // Quiz
+    const quizOptions = document.getElementById("quizOptions");
+    const quizFeedback = document.getElementById("quizFeedback");
+    const retryQuiz = document.getElementById("retryQuiz");
+
+    quizOptions.addEventListener("click", event => {
+      const button = event.target.closest(".quiz-option");
+      if (!button) return;
+
+      const correct = button.dataset.correct === "true";
+      quizFeedback.textContent = correct
+        ? "Correct! Never share your OTP. Contact your bank using its official app, website, or a trusted phone number."
+        : "Not quite. Never share an OTP. Stop and verify the situation through your bank's official contact channel.";
+      quizFeedback.style.color = correct ? "var(--green)" : "var(--yellow)";
+      quizOptions.querySelectorAll("button").forEach(item => item.disabled = true);
+      retryQuiz.hidden = false;
+    });
+
+    retryQuiz.addEventListener("click", () => {
+      quizOptions.querySelectorAll("button").forEach(item => item.disabled = false);
+      quizFeedback.textContent = "";
+      retryQuiz.hidden = true;
+    });
+
+    // -------------------------------------------------------
+    // OPTIONAL FIREBASE SETUP
+    //
+    // Replace the values below with your own Firebase web app
+    // configuration. The configuration is not a secret, but
+    // database access must be protected with Firebase rules.
+    // -------------------------------------------------------
+
+    const firebaseConfig = {
+      apiKey: "PASTE_YOUR_FIREBASE_API_KEY",
+      authDomain: "PASTE_YOUR_PROJECT.firebaseapp.com",
+      projectId: "PASTE_YOUR_PROJECT_ID",
+      storageBucket: "PASTE_YOUR_STORAGE_BUCKET",
+      messagingSenderId: "PASTE_YOUR_MESSAGING_SENDER_ID",
+      appId: "PASTE_YOUR_APP_ID"
+    };
+
+    let firebaseAuth = null;
+    let firebaseDb = null;
+    let firebaseUser = null;
+    let firebaseReady = false;
+
+    const reportStatus = document.getElementById("reportStatus");
+    const authStatus = document.getElementById("authStatus");
+    const googleSignIn = document.getElementById("googleSignIn");
+    const googleSignOut = document.getElementById("googleSignOut");
+
+    function firebaseConfigIsReady() {
+      return firebaseConfig.apiKey.startsWith("AIza") &&
+        !firebaseConfig.projectId.includes("PASTE_") &&
+        !firebaseConfig.authDomain.includes("PASTE_") &&
+        !firebaseConfig.appId.includes("PASTE_");
+    }
+
+    async function initializeFirebase() {
+      if (!firebaseConfigIsReady()) {
+        authStatus.textContent = "Firebase is not configured. The rest of the website still works.";
+        return;
+      }
+
+      try {
+        const appModule = await import("https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js");
+        const authModule = await import("https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js");
+        const firestoreModule = await import("https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js");
+
+        const app = appModule.initializeApp(firebaseConfig);
+        firebaseAuth = authModule.getAuth(app);
+        firebaseDb = firestoreModule.getFirestore(app);
+        firebaseReady = true;
+
+        authModule.onAuthStateChanged(firebaseAuth, user => {
+          firebaseUser = user;
+
+          if (user) {
+            authStatus.textContent = "Signed in as " + (user.displayName || user.email || "Google user") + ".";
+            googleSignIn.hidden = true;
+            googleSignOut.hidden = false;
+          } else {
+            authStatus.textContent = "Not signed in.";
+            googleSignIn.hidden = false;
+            googleSignOut.hidden = true;
+          }
+        });
+
+        reportStatus.textContent = "Firebase initialized. Sign in to submit a report for review.";
+      } catch (error) {
+        console.error("Firebase initialization error:", error);
+        authStatus.textContent = "Firebase could not initialize. Check your configuration and internet connection.";
+      }
+    }
+
+    googleSignIn.addEventListener("click", async () => {
+      if (!firebaseReady) {
+        authStatus.textContent = "Set up your Firebase configuration first.";
+        return;
+      }
+
+      try {
+        const authModule = await import("https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js");
+        const provider = new authModule.GoogleAuthProvider();
+        await authModule.signInWithPopup(firebaseAuth, provider);
+      } catch (error) {
+        console.error("Google sign-in error:", error);
+        authStatus.textContent = "Sign-in failed. Check Firebase Google sign-in settings and authorized domains.";
+      }
+    });
+
+    googleSignOut.addEventListener("click", async () => {
+      if (!firebaseAuth) return;
+      try {
+        const authModule = await import("https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js");
+        await authModule.signOut(firebaseAuth);
+      } catch (error) {
+        console.error("Sign-out error:", error);
+        authStatus.textContent = "Could not sign out. Please try again.";
+      }
+    });
+
+    document.getElementById("reportForm").addEventListener("submit", async event => {
+      event.preventDefault();
+
+      const category = document.getElementById("reportType").value;
+      const description = document.getElementById("reportDescription").value.trim();
+
+      if (!category || description.length < 10) {
+        reportStatus.textContent = "Choose a category and enter at least 10 characters.";
+        return;
+      }
+
+      if (!firebaseReady || !firebaseDb) {
+        reportStatus.textContent = "Demo only: report was not saved or sent. Configure Firebase to enable submissions.";
+        return;
+      }
+
+      if (!firebaseUser) {
+        reportStatus.textContent = "Please sign in with Google before submitting a report.";
+        return;
+      }
+
+      const submitButton = event.submitter;
+      if (submitButton) submitButton.disabled = true;
+
+      try {
+        const firestoreModule = await import("https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js");
+
+        // Reports remain pending review. Do not publish them automatically.
+        await firestoreModule.addDoc(
+          firestoreModule.collection(firebaseDb, "communityReports"),
+          {
+            category,
+            description,
+            status: "pending_review",
+            createdAt: firestoreModule.serverTimestamp(),
+            uid: firebaseUser.uid
+          }
+        );
+
+        reportStatus.textContent = "Report submitted for review. This is not an official police or cybercrime complaint.";
+        event.target.reset();
+      } catch (error) {
+        console.error("Report submission error:", error);
+        reportStatus.textContent = "Report could not be submitted. Check Firestore rules and Firebase settings.";
+      } finally {
+        if (submitButton) submitButton.disabled = false;
+      }
+    });
+
+    initializeFirebase();
+  </script>
+</body>
+</html>
